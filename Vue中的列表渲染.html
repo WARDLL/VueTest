@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue中的列表渲染</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div v-for="(item,index) of list" :key="item.id">
+            {{item.text}}---{{index}}
+        </div> -->
+
+        <!-- 循环userInfo把对应的内容打印到页面上。 -->
+        <!-- <div v-for='item of userInfo'>
+            {{item}}
+        </div> -->
+        <div v-for="(item,index) of userInfo">{{item}}</div>
+    </div>
+
+    <script>
+        // push pop shift unshift splice sort reverse
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                // list: [{
+                //     id:000001,
+                //     text:'hello'
+                // },{
+                //     id:000002,
+                //     text:'world'
+                // },{
+                //     id:000003,
+                //     text:'nice'
+                // },{
+                //     id:000004,
+                //     text:'to'
+                // },{
+                //     id:000005,
+                //     text:'meet'
+                // },{
+                //     id:000006,
+                //     text:'you'
+                // }
+                // ]
+
+                // userInfo:{
+                //     name:'wardll',
+                //     age:'23',
+                //     gender:'male',
+                //     salary:'secret'
+                // }
+
+                userInfo:[1,2,3,4]
+            }
+        })
+    </script>
+</body>
+
+</html>

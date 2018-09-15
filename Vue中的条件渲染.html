@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue中的条件渲染</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="show==='a'">This is A</div>
+        <!-- <div v-show="show">{{message}}</div> -->
+        <!-- 充当 v-if 的“else-if 块”，可以连续使用  -->
+        <div v-else-if="show==='b'">This is B</div>
+        <div v-else>This is others</div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show:'a'
+            }
+        })
+    </script>
+</body>
+
+</html>
