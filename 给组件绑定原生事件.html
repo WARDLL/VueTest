@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>给组件绑定原生事件</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- .native为事件修饰符，监听的就不是自定义事件而是原生事件。 -->
+        <child @click.native="handleClick"></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            template: '<div @click="handleClick">Child</div>',
+            // methods:{
+            //     handleClick:function(){
+            //         alert('click子组件')
+            //         // 触发自定义事件
+            //         this.$emit('click')
+            //     }
+            // }
+        })
+        var vm = new Vue({
+            el: '#root',
+            methods:{
+                handleClick:function(){
+                    alert('click自定义')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
