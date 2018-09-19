@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子组件的传值</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <child content="hello"></child>
+        <child content="world"></child>
+    </div>
+
+    <script>
+        // 在Vue.prototype上挂在一个bus的属性，这个属性指向一个vue实例
+        Vue.prototype.bus = new Vue({
+
+        })
+
+        Vue.component('child', {
+            // 避免单项数据流引发的警告
+            data: function () {
+                return {
+                    selfContent: this.content
+                }
+            },
+            props: {
+                content: String
+            },
+            template: '<div @click="handleClick">{{selfContent}}</div>',
+            methods: {
+                handleClick: function () {
+                    // this.bus指的是实例挂在的bus
+                    // bus又是vue实例，所以就会有$emit方法
+                    // 就可以通过方法来触发事件
+                    // 事件触发的同时携带了数据this.content
+                    this.bus.$emit('change', this.selfContent)
+                }
+            },
+            // 生命周期钩子
+            // el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。
+            // 挂载完成，模板中的html已经渲染到html页面上。
+            // 只会执行一次
+            mounted: function () {
+                // this作用域发生变化，做一下保存
+                var this_ = this
+                this.bus.$on('change', function (msg) {
+                    this_.selfContent = msg
+                })
+            }
+        })
+
+        var vm = new Vue({
+            el: '#root'
+        })
+    </script>
+</body>
+
+</html>
