@@ -12,10 +12,13 @@
 <body>
     <div id="root">
         <child>
+            <!-- 作用域插槽必须在template中
+            插槽要声明从子组件接收的数据都放在props（可自定义名称）
+            并以h1标签的形式进行展示 -->
             <template slot-scope="props">
-                <li>
+                <h1>
                     {{props.item}}
-                </li>
+                </h1>
             </template>
         </child>
     </div>
@@ -27,6 +30,7 @@
                     list:[1,2,3,4]
                 }
             },
+            // 当子组件做循环或者某一部分的DOM结构应该由外部传递进来的时候，使用作用域插槽。
             template: '<div><ul><slot v-for="item of list" :item=item></slot></ul></div>'
         })
 
