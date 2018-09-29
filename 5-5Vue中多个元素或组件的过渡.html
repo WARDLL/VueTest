@@ -22,22 +22,40 @@
 
 <body>
     <div id="root">
-        <transition>
-            <div v-if="show">Hello World</div>
-            <div v-else>Bye World</div>
+        <!-- mode属性设置多个属性切换的效果 -->
+        <!-- mode="in-out"时，先显示需要显示的元素，再隐藏需要隐藏的元素。 -->
+        <!-- mode="out-in"时，先隐藏需要隐藏的元素，再显示需要显示的元素。 -->
+        <transition mode="out-in">
+            <!-- 使用key避免DOM复用 -->
+            <!-- <div v-if="show" key="hello">Hello World</div>
+            <div v-else key="bye">Bye World</div> -->
+
+            <!-- component标签定义动态组件 -->
+            <!-- 通过is进行绑定 -->
+            <component :is="type"></component>
         </transition>
         <button @click="handleBtnClick">toggle</button>
     </div>
 
     <script>
+        Vue.component('child', {
+            template: '<div>child</div>'
+        })
+
+        Vue.component('child-one', {
+            template: '<div>child-one</div>'
+        })
+
         var vm = new Vue({
             el: '#root',
             data: {
-                show: true
+                // show: true
+                type: 'child'
             },
             methods: {
                 handleBtnClick: function () {
-                    this.show = !this.show
+                    // this.show = !this.show
+                    this.type = this.type === 'child' ? 'child-one' : 'child'
                 }
             }
         })
